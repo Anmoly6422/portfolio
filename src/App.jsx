@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import Navbar from './sections/Navbar'
-import Hero from './sections/hero'
+import Hero from './sections/Hero'
 import ServiceSummary from './sections/ServiceSummary'
 import Services from './sections/Services'
 import About from './sections/About'
