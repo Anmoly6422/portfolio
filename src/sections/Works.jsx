@@ -73,7 +73,7 @@ results and impact.`;
         clipPath: "polygon(0 0,100% 0,100% 100%,0 100%)",
         duration: 0.15,
         ease: "power2.out",
-      }
+      },
     );
 
     gsap.to(previewRef.current, {
@@ -126,10 +126,7 @@ results and impact.`;
         withScrollTrigger={true}
       />
 
-      <div
-        className="relative flex flex-col"
-        onMouseMove={handleMouseMove}
-      >
+      <div className="relative flex flex-col" onMouseMove={handleMouseMove}>
         {projects.map((section) => (
           <div key={section.title} className="mb-20">
             <h2 className="px-10 mb-8 text-5xl font-semibold">
@@ -140,19 +137,22 @@ results and impact.`;
               const current = overlayIndex++;
 
               return (
-                <div
-                  key={project.id}
-                  id="project"
-                  className="relative flex flex-col gap-1 py-5 cursor-pointer group"
-                  onMouseEnter={() => handleMouseEnter(project, current)}
-                  onMouseLeave={() => handleMouseLeave(current)}
-                >
+                <div>
+                  <a
+                    key={project.id}
+                    href={project.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    id="project"
+                    className="relative flex flex-col gap-1 py-5 cursor-pointer group"
+                    onMouseEnter={() => handleMouseEnter(project, current)}
+                    onMouseLeave={() => handleMouseLeave(current)}
+                  >
                   <div
                     ref={(el) => (overlayRefs.current[current] = el)}
                     className="absolute inset-0 hidden bg-black md:block -z-10"
                     style={{
-                      clipPath:
-                        "polygon(0 100%,100% 100%,100% 100%,0 100%)",
+                      clipPath: "polygon(0 100%,100% 100%,100% 100%,0 100%)",
                     }}
                   />
 
@@ -161,10 +161,7 @@ results and impact.`;
                       {project.name}
                     </h3>
 
-                    <Icon
-                      icon="lucide:arrow-up-right"
-                      className="size-6"
-                    />
+                    <Icon icon="lucide:arrow-up-right" className="size-6" />
                   </div>
 
                   <div className="w-full h-px bg-black/80" />
@@ -194,6 +191,7 @@ results and impact.`;
                       className="absolute px-12 rounded-xl"
                     />
                   </div>
+                  </a>
                 </div>
               );
             })}
