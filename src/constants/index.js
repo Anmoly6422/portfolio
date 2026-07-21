@@ -57,25 +57,7 @@ export const servicesData = [
       },
     ],
   },
-  {
-    title: "Problem Solving & DSA",
-    description:
-      "I'm actively practicing Data Structures & Algorithms and applying strong fundamentals (C++, Java, Python) to write efficient, well-structured code.",
-    items: [
-      {
-        title: "Algorithms & DSA",
-        description: "(Practicing Problem Solving, Optimized Solutions)",
-      },
-      {
-        title: "Clean Code",
-        description: "(Readable, Maintainable, Well-Structured Logic)",
-      },
-      {
-        title: "Continuous Learning",
-        description: "(Full Stack & Mobile Dev, Always Building)",
-      },
-    ],
-  },
+ 
 ];
 
 export const webProjects = [
