@@ -13,12 +13,12 @@ const ContactSummary = () => {
     "Excellence",
   ];
   const items2 = [
-    "contact us",
-    "contact us",
-    "contact us",
-    "contact us",
-    "contact us",
-  ];
+  "CONTACT ME",
+  "EMAIL",
+  "LINKEDIN",
+  "GITHUB",
+  "LET'S BUILD SOMETHING AMAZING",
+];
 
   useGSAP(() => {
     gsap.to(containerRef.current, {
