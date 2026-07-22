@@ -137,9 +137,8 @@ results and impact.`;
               const current = overlayIndex++;
 
               return (
-                <div>
+                <div key={project.id}>
                   <a
-                    key={project.id}
                     href={project.href}
                     target="_blank"
                     rel="noopener noreferrer"
@@ -148,49 +147,49 @@ results and impact.`;
                     onMouseEnter={() => handleMouseEnter(project, current)}
                     onMouseLeave={() => handleMouseLeave(current)}
                   >
-                  <div
-                    ref={(el) => (overlayRefs.current[current] = el)}
-                    className="absolute inset-0 hidden bg-black md:block -z-10"
-                    style={{
-                      clipPath: "polygon(0 100%,100% 100%,100% 100%,0 100%)",
-                    }}
-                  />
-
-                  <div className="flex justify-between px-10 transition-all duration-500 group-hover:text-white md:group-hover:px-12">
-                    <h3 className="text-[28px] lg:text-[34px]">
-                      {project.name}
-                    </h3>
-
-                    <Icon icon="lucide:arrow-up-right" className="size-6" />
-                  </div>
-
-                  <div className="w-full h-px bg-black/80" />
-
-                  <div className="flex flex-wrap gap-4 px-10 mt-2 uppercase transition-all duration-500 md:group-hover:px-12">
-                    {project.frameworks.map((framework) => (
-                      <span
-                        key={framework.id}
-                        className="text-sm transition-colors duration-500 group-hover:text-white"
-                      >
-                        {framework.name}
-                      </span>
-                    ))}
-                  </div>
-
-                  {/* Mobile Image */}
-                  <div className="relative flex items-center justify-center h-96 px-10 mt-5 md:hidden">
-                    <img
-                      src={project.bgImage}
-                      alt=""
-                      className="object-cover w-full h-full rounded-lg brightness-50"
+                    <div
+                      ref={(el) => (overlayRefs.current[current] = el)}
+                      className="absolute inset-0 hidden bg-black md:block -z-10"
+                      style={{
+                        clipPath: "polygon(0 100%,100% 100%,100% 100%,0 100%)",
+                      }}
                     />
 
-                    <img
-                      src={project.image}
-                      alt={project.name}
-                      className="absolute px-12 rounded-xl"
-                    />
-                  </div>
+                    <div className="flex justify-between px-10 transition-all duration-500 group-hover:text-white md:group-hover:px-12">
+                      <h3 className="text-[28px] lg:text-[34px]">
+                        {project.name}
+                      </h3>
+
+                      <Icon icon="lucide:arrow-up-right" className="size-6" />
+                    </div>
+
+                    <div className="w-full h-px bg-black/80" />
+
+                    <div className="flex flex-wrap gap-4 px-10 mt-2 uppercase transition-all duration-500 md:group-hover:px-12">
+                      {project.frameworks.map((framework) => (
+                        <span
+                          key={framework.id}
+                          className="text-sm transition-colors duration-500 group-hover:text-white"
+                        >
+                          {framework.name}
+                        </span>
+                      ))}
+                    </div>
+
+                    {/* Mobile Image */}
+                    <div className="relative flex items-center justify-center h-96 px-10 mt-5 md:hidden">
+                      <img
+                        src={project.bgImage}
+                        alt=""
+                        className="object-cover w-full h-full rounded-lg brightness-50"
+                      />
+
+                      <img
+                        src={project.image}
+                        alt={project.name}
+                        className="absolute px-12 rounded-xl"
+                      />
+                    </div>
                   </a>
                 </div>
               );
