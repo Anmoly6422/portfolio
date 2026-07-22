@@ -145,7 +145,7 @@ const Marquee = ({
   return (
     <div
       ref={containerRef}
-      className={`overflow-hidden w-full h-20 md:h-25 flex items-center marquee-text-responsive font-light uppercase whitespace-nowrap ${className}`}
+      className={`overflow-hidden w-full py-5 flex items-center marquee-text-responsive font-light uppercase whitespace-nowrap ${className}`}
     >
       <div className="flex">
         {items.map((text, index) => (
