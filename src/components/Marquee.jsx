@@ -124,23 +124,40 @@ const Marquee = ({
       reversed: reverse,
     });
 
-    Observer.create({
-      onChangeY(self) {
-        let factor = 2.5;
-        if ((!reverse && self.deltaY < 0) || (reverse && self.deltaY > 0)) {
-          factor *= -1;
-        }
-        gsap
-          .timeline({
-            defaults: {
-              ease: "none",
-            },
-          })
-          .to(tl, { timeScale: factor * 2.5, duration: 0.2, overwrite: true })
-          .to(tl, { timeScale: factor / 2.5, duration: 1 }, "+=0.3");
-      },
-    });
-    return () => tl.kill();
+    const observer = Observer.create({
+  onChangeY(self) {
+    let factor = 2.5;
+
+    if ((!reverse && self.deltaY < 0) || (reverse && self.deltaY > 0)) {
+      factor *= -1;
+    }
+
+    gsap
+      .timeline({
+        defaults: {
+          ease: "none",
+        },
+      })
+      .to(tl, {
+        timeScale: factor * 2.5,
+        duration: 0.2,
+        overwrite: true,
+      })
+      .to(
+        tl,
+        {
+          timeScale: factor / 2.5,
+          duration: 1,
+        },
+        "+=0.3"
+      );
+  },
+});
+
+return () => {
+  observer.kill();
+  tl.kill();
+};
   }, [items, reverse]);
   return (
     <div
