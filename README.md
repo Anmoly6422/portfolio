@@ -2,7 +2,7 @@
 
 A modern, animation-driven developer portfolio built with React, Tailwind CSS, GSAP, and Three.js. Designed to showcase work through smooth scroll-based animations and interactive 3D elements instead of static screenshots.
 
-**Live site:** [portfolio-anmol-git-main-anmol-yadav-s-projects.vercel.app](https://portfolio-anmol-git-main-anmol-yadav-s-projects.vercel.app/)
+**Live site:** [https://heyanmol.vercel.app/](https://heyanmol.vercel.app/)
 
 ## Overview
 
