@@ -8,46 +8,75 @@ import ReactLenis from 'lenis/react'
 import Works from './sections/Works'
 import ContactSummary from './sections/ContactSummary'
 import Contact from './sections/Contact'
+import ProjectShowcase from './components/ProjectShowcase'
+import CurtainLoader from './components/CurtainLoader'
 import { useProgress } from '@react-three/drei'
 
 const App = () => {
-  const {progress} = useProgress();
+  const { progress } = useProgress();
   const [isReady, setIsReady] = useState(false);
+  const [loaderFinished, setLoaderFinished] = useState(false);
+  const [activeShowcase, setActiveShowcase] = useState(null);
 
-   useEffect(() => {
+  useEffect(() => {
     if (progress === 100) {
       setIsReady(true);
     }
   }, [progress]);
+
+  // Handle URL hash changes for showcase navigation e.g. #showcase/expomind
+  useEffect(() => {
+    const handleHashChange = () => {
+      const hash = window.location.hash;
+      if (hash.startsWith('#showcase/')) {
+        const id = hash.replace('#showcase/', '');
+        setActiveShowcase(id);
+      } else {
+        setActiveShowcase(null);
+      }
+    };
+
+    handleHashChange();
+    window.addEventListener('hashchange', handleHashChange);
+    return () => window.removeEventListener('hashchange', handleHashChange);
+  }, []);
+
+  const openShowcase = (id) => {
+    setActiveShowcase(id);
+    window.location.hash = `#showcase/${id}`;
+  };
+
+  const closeShowcase = () => {
+    setActiveShowcase(null);
+    if (window.location.hash.startsWith('#showcase/')) {
+      window.history.pushState('', document.title, window.location.pathname + window.location.search);
+    }
+  };
+
   return (
     <ReactLenis root className='relative w-screen min-h-screen overflow-x-auto'>
-      {!isReady && (
-        <div className="fixed inset-0 z-999 flex flex-col items-center justify-center bg-black text-white transition-opacity duration-700 font-light">
-          <p className="mb-4 text-xl tracking-widest animate-pulse">
-            Loading {Math.floor(progress)}%
-          </p>
-          <div className="relative h-1 overflow-hidden rounded w-60 bg-white/20">
-            <div
-              className="absolute top-0 left-0 h-full transition-all duration-300 bg-white"
-              style={{ width: `${progress}%` }}
-            ></div>
-          </div>
-        </div>
+      {!loaderFinished && (
+        <CurtainLoader
+          progress={progress}
+          isReady={isReady}
+          onComplete={() => setLoaderFinished(true)}
+        />
       )}
-      <div
-        className={`${
-          isReady ? "opacity-100" : "opacity-0"
-        } transition-opacity duration-1000`}
-      >
-      <Navbar/>
-      <Hero/>
-      <ServiceSummary/>
-      <Services/>
-      <About/>
-      <Works/>
-      <ContactSummary/>
-      <Contact/>
+
+      <div className="opacity-100">
+        <Navbar />
+        <Hero />
+        <ServiceSummary />
+        <Works onOpenShowcase={openShowcase} />
+        <Services />
+        <About />
+        <ContactSummary />
+        <Contact />
       </div>
+
+      {activeShowcase && (
+        <ProjectShowcase showcaseId={activeShowcase} onClose={closeShowcase} />
+      )}
     </ReactLenis>
   )
 }

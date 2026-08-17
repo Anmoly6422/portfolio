@@ -1,9 +1,9 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import { socials } from "../constants";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
-import { useEffect } from "react";
 import { Link } from "react-scroll";
+import MagneticButton from "../components/MagneticButton";
 const Navbar = () => {
   const navRef = useRef(null);
   const linkRef = useRef([]);
@@ -158,7 +158,8 @@ const Navbar = () => {
           </div>
         </div>
       </nav>
-      <div
+      <MagneticButton
+        strength={0.4}
         className="fixed z-50 flex flex-col items-center justify-center gap-1 transition-all 
     duration-300 bg-black rounded-full cursor-pointer w-14 h-14 md:w-20 md:h-20 top-4 right-10"
         onClick={toggleMenu}
@@ -176,7 +177,7 @@ const Navbar = () => {
           ref={bottomlineRef}
           className="block w-8 h-0.5 bg-white rounded-full origin-center"
         ></span>
-      </div>
+      </MagneticButton>
     </>
   );
 };
