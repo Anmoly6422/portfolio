@@ -20,8 +20,8 @@ const CurtainLoader = ({ progress, isReady, onComplete }) => {
         // 1. Text content fade out with smooth scale
         tl.to(textRef.current, {
           opacity: 0,
-          scale: 0.94,
-          duration: 0.35,
+          scale: 0.95,
+          duration: 0.15,
           ease: "power2.in",
         });
 
@@ -34,10 +34,10 @@ const CurtainLoader = ({ progress, isReady, onComplete }) => {
             blade,
             {
               yPercent: direction,
-              duration: 0.85,
-              ease: "power4.inOut",
+              duration: 0.4,
+              ease: "power3.inOut",
             },
-            index === 0 ? "-=0.1" : `<+${0.05}`
+            index === 0 ? "-=0.05" : `<+${0.02}`
           );
         });
       }, containerRef);
@@ -107,9 +107,9 @@ const CurtainLoader = ({ progress, isReady, onComplete }) => {
           </div>
 
           {/* Main Name Heading */}
-          <h1 className="text-5xl sm:text-7xl lg:text-8xl font-bold tracking-tighter text-white leading-none">
+          <div className="text-5xl sm:text-7xl lg:text-8xl font-bold tracking-tighter text-white leading-none">
             ANMOL YADAV
-          </h1>
+          </div>
 
           {/* Monospaced 3-Digit Counter */}
           <div className="flex items-baseline gap-2 my-2 font-mono">

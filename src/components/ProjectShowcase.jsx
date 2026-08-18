@@ -1,5 +1,15 @@
 import React, { useEffect, useRef, useState } from "react";
-import { Icon } from "@iconify/react/dist/iconify.js";
+import {
+  ArrowLeftIcon,
+  ArrowUpRightIcon,
+  GithubIcon,
+  SmartphoneIcon,
+  LayersIcon,
+  Maximize2Icon,
+  XIcon,
+  ChevronLeftIcon,
+  ChevronRightIcon,
+} from "./Icons";
 import { mobileProjects } from "../constants";
 import MagneticButton from "./MagneticButton";
 import TiltCard from "./TiltCard";
@@ -122,9 +132,10 @@ const ProjectShowcase = ({ showcaseId, onClose }) => {
         <MagneticButton
           onClick={onClose}
           strength={0.4}
+          aria-label="Back to projects list"
           className="group flex items-center gap-2.5 px-5 py-2.5 rounded-full bg-black text-white hover:bg-neutral-800 transition-all duration-300 shadow-md text-sm font-medium"
         >
-          <Icon icon="lucide:arrow-left" className="size-4 transition-transform group-hover:-translate-x-1" />
+          <ArrowLeftIcon className="size-4 transition-transform group-hover:-translate-x-1" aria-hidden="true" />
           <span>Back to Projects</span>
         </MagneticButton>
 
@@ -138,11 +149,12 @@ const ProjectShowcase = ({ showcaseId, onClose }) => {
           target="_blank"
           rel="noopener noreferrer"
           strength={0.4}
+          aria-label={`View ${project.name} source code on GitHub`}
           className="flex items-center gap-2 px-5 py-2.5 rounded-full bg-white border border-black/15 text-black hover:bg-neutral-900 hover:text-white transition-all duration-300 shadow-sm text-sm font-medium"
         >
-          <Icon icon="lucide:github" className="size-4" />
+          <GithubIcon className="size-4" aria-hidden="true" />
           <span className="hidden sm:inline">Source Code</span>
-          <Icon icon="lucide:arrow-up-right" className="size-4" />
+          <ArrowUpRightIcon className="size-4" aria-hidden="true" />
         </MagneticButton>
       </header>
 
@@ -190,14 +202,16 @@ const ProjectShowcase = ({ showcaseId, onClose }) => {
                       <div className="w-full h-full bg-black rounded-[24px] overflow-hidden relative">
                         <img
                           src={imgSrc}
-                          alt={`${project.name} screen ${idx + 1}`}
+                          alt={`${project.name} preview screen ${idx + 1}`}
+                          loading="lazy"
+                          decoding="async"
                           className="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105"
                         />
 
                         {/* Hover Overlay Badge */}
                         <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
                           <div className="px-3.5 py-1.5 rounded-full bg-white/90 text-black text-xs font-semibold tracking-wide flex items-center gap-1.5 shadow-lg border border-white">
-                            <Icon icon="lucide:maximize-2" className="size-3.5" />
+                            <Maximize2Icon className="size-3.5" aria-hidden="true" />
                             <span>Inspect</span>
                           </div>
                         </div>
@@ -218,14 +232,14 @@ const ProjectShowcase = ({ showcaseId, onClose }) => {
           >
             {/* Header Pill */}
             <div className="px-4 py-1.5 rounded-full bg-[#393632] text-white text-xs font-semibold uppercase tracking-widest flex items-center gap-2 shadow-sm">
-              <Icon icon="lucide:smartphone" className="size-4 text-[#cfa355]" />
+              <SmartphoneIcon className="size-4 text-[#cfa355]" aria-hidden="true" />
               <span>Mobile App Showcase</span>
             </div>
 
             {/* Main App Title */}
-            <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold tracking-tight text-[#111111] leading-none">
+            <h2 className="text-5xl sm:text-6xl lg:text-7xl font-bold tracking-tight text-[#111111] leading-none">
               {project.name}
-            </h1>
+            </h2>
 
             {/* Description */}
             <p className="text-base sm:text-lg text-[#393632] font-normal leading-relaxed max-w-lg">
@@ -251,20 +265,22 @@ const ProjectShowcase = ({ showcaseId, onClose }) => {
                 target="_blank"
                 rel="noopener noreferrer"
                 strength={0.3}
+                aria-label={`Explore ${project.name} source code on GitHub`}
                 className="w-full sm:w-auto px-8 py-4 rounded-full bg-black text-white font-semibold text-sm hover:bg-neutral-800 transition-all duration-300 shadow-lg group"
               >
-                <Icon icon="lucide:github" className="size-5 mr-2" />
+                <GithubIcon className="size-5 mr-2" aria-hidden="true" />
                 <span>Explore GitHub Code</span>
-                <Icon icon="lucide:arrow-up-right" className="size-4 ml-1 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                <ArrowUpRightIcon className="size-4 ml-1 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" aria-hidden="true" />
               </MagneticButton>
 
               {images.length > 0 && (
                 <MagneticButton
                   onClick={() => setActiveImageIndex(0)}
                   strength={0.3}
+                  aria-label={`Inspect ${images.length} app screens`}
                   className="w-full sm:w-auto px-6 py-4 rounded-full bg-white hover:bg-neutral-100 text-black font-semibold text-sm border border-black/20 transition-all duration-300 shadow-sm"
                 >
-                  <Icon icon="lucide:layers" className="size-4 mr-2" />
+                  <LayersIcon className="size-4 mr-2" aria-hidden="true" />
                   <span>Inspect Screens ({images.length})</span>
                 </MagneticButton>
               )}
@@ -286,7 +302,9 @@ const ProjectShowcase = ({ showcaseId, onClose }) => {
               >
                 <img
                   src={imgSrc}
-                  alt={`${project.name} mobile ${idx}`}
+                  alt={`${project.name} mobile screen ${idx + 1}`}
+                  loading="lazy"
+                  decoding="async"
                   className="w-full h-full object-cover object-top"
                 />
               </div>
@@ -305,7 +323,7 @@ const ProjectShowcase = ({ showcaseId, onClose }) => {
               className="flex items-center gap-3 px-3 py-1.5 rounded-xl bg-white border border-black/10 shadow-sm cursor-pointer hover:border-[#cfa355] transition-all shrink-0 hover:scale-105"
             >
               <div className="w-6 h-10 rounded-md overflow-hidden bg-black border border-neutral-800 shrink-0">
-                <img src={img} alt="" className="w-full h-full object-cover object-top" />
+                <img src={img} alt={`${project.name} thumbnail ${i + 1}`} loading="lazy" decoding="async" className="w-full h-full object-cover object-top" />
               </div>
               <span className="text-xs font-semibold text-black">
                 {project.name} UI #{i % images.length + 1}
@@ -324,9 +342,10 @@ const ProjectShowcase = ({ showcaseId, onClose }) => {
             </div>
             <MagneticButton
               onClick={() => setActiveImageIndex(null)}
+              aria-label="Close image inspector modal"
               className="p-3 rounded-full bg-white/10 hover:bg-white hover:text-black text-white transition-colors border border-white/20"
             >
-              <Icon icon="lucide:x" className="size-6" />
+              <XIcon className="size-6" aria-hidden="true" />
             </MagneticButton>
           </div>
 
@@ -335,9 +354,10 @@ const ProjectShowcase = ({ showcaseId, onClose }) => {
               onClick={() =>
                 setActiveImageIndex((prev) => (prev > 0 ? prev - 1 : images.length - 1))
               }
+              aria-label="Previous screen"
               className="absolute left-2 sm:left-6 z-20 p-3.5 rounded-full bg-black/60 hover:bg-white hover:text-black border border-white/20 transition-all text-white shadow-xl"
             >
-              <Icon icon="lucide:chevron-left" className="size-6" />
+              <ChevronLeftIcon className="size-6" aria-hidden="true" />
             </MagneticButton>
 
             <TiltCard maxTilt={14} className="h-full max-h-[750px] aspect-[9/19.5] rounded-[42px] overflow-hidden shadow-[0_0_90px_rgba(255,255,255,0.2)]">
@@ -348,7 +368,7 @@ const ProjectShowcase = ({ showcaseId, onClose }) => {
                 </div>
                 <img
                   src={images[activeImageIndex]}
-                  alt="High res screen"
+                  alt={`${project.name} detailed screen ${activeImageIndex + 1}`}
                   className="w-full h-full object-cover object-top rounded-[32px]"
                 />
               </div>
@@ -358,9 +378,10 @@ const ProjectShowcase = ({ showcaseId, onClose }) => {
               onClick={() =>
                 setActiveImageIndex((prev) => (prev < images.length - 1 ? prev + 1 : 0))
               }
+              aria-label="Next screen"
               className="absolute right-2 sm:right-6 z-20 p-3.5 rounded-full bg-black/60 hover:bg-white hover:text-black border border-white/20 transition-all text-white shadow-xl"
             >
-              <Icon icon="lucide:chevron-right" className="size-6" />
+              <ChevronRightIcon className="size-6" aria-hidden="true" />
             </MagneticButton>
           </div>
 
@@ -369,13 +390,14 @@ const ProjectShowcase = ({ showcaseId, onClose }) => {
               <button
                 key={i}
                 onClick={() => setActiveImageIndex(i)}
+                aria-label={`Inspect screen ${i + 1}`}
                 className={`w-11 h-18 rounded-lg overflow-hidden border-2 transition-all shrink-0 ${
                   activeImageIndex === i
                     ? "border-[#cfa355] scale-110 shadow-lg"
                     : "border-transparent opacity-50 hover:opacity-100"
                 }`}
               >
-                <img src={img} alt="thumb" className="w-full h-full object-cover" />
+                <img src={img} alt={`Thumbnail ${i + 1}`} className="w-full h-full object-cover" />
               </button>
             ))}
           </div>

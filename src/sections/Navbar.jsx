@@ -133,17 +133,24 @@ const Navbar = () => {
           className="flex flex-col flex-wrap justify-between gap-8 md:flex-row"
         >
           <div className="font-light">
-            <p className="tracking-wider text-white/50">E-mail</p>
-            <p className="text-xl tracking-widest lowercase text-pretty">
+            <p className="tracking-wider text-white/70">E-mail</p>
+            <a
+              href="mailto:yadavanmol540@gmail.com"
+              aria-label="Email Anmol Yadav"
+              className="text-xl tracking-widest lowercase text-pretty hover:text-white transition-colors"
+            >
               yadavanmol540@gmail.com
-            </p>
+            </a>
           </div>
           <div className="font-light">
-            <p className="tracking-wider text-white/50">Social Media</p>
+            <p className="tracking-wider text-white/70">Social Media</p>
             <div className="flex flex-col flex-wrap md:flex-row gap-x-2">
               {socials.map((social, index) => (
                 <a
                   href={social.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={`Visit Anmol's ${social.name} profile`}
                   key={index}
                   className="text-sm leading-loose
                     tracking-widest uppercase hover:text-white transition-colors duration-300"
@@ -151,7 +158,6 @@ const Navbar = () => {
                   {"{"}
                   {social.name}
                   {"}"}
-                  
                 </a>
               ))}
             </div>
@@ -160,6 +166,8 @@ const Navbar = () => {
       </nav>
       <MagneticButton
         strength={0.4}
+        aria-label={isOpen ? "Close navigation menu" : "Open navigation menu"}
+        aria-expanded={isOpen}
         className="fixed z-50 flex flex-col items-center justify-center gap-1 transition-all 
     duration-300 bg-black rounded-full cursor-pointer w-14 h-14 md:w-20 md:h-20 top-4 right-10"
         onClick={toggleMenu}

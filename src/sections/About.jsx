@@ -46,12 +46,14 @@ Beyond client projects, I enjoy exploring new technologies, contributing to pers
         textColor={"text-white"}
         withScrollTrigger={true}
       />
-      <div className="flex flex-col items-center justify-between gap-16 px-10 pb-16 text-xl font-light tracking-wide lg:flex-row md:text-2xl lg:text-3xl text-white/60">
+      <div className="flex flex-col items-center justify-between gap-16 px-10 pb-16 text-xl font-light tracking-wide lg:flex-row md:text-2xl lg:text-3xl text-white/80">
         <TiltCard maxTilt={14} className="w-full md:w-md rounded-3xl overflow-hidden shadow-2xl">
           <img
             ref={imgRef}
-            src="images/ber.jpg"
-            alt="man"
+            src="/images/ber.jpg"
+            alt="Anmol Yadav - Full-Stack & Mobile Software Architect"
+            loading="lazy"
+            decoding="async"
             className="w-full h-full object-cover rounded-3xl"
           />
         </TiltCard>

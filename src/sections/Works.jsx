@@ -1,4 +1,4 @@
-import { Icon } from "@iconify/react/dist/iconify.js";
+import { ArrowUpRightIcon } from "../components/Icons";
 import AnimatedHeaderSection from "../components/AnimatedHeaderSection";
 import { webProjects, mobileProjects } from "../constants";
 import { useRef, useState } from "react";
@@ -144,6 +144,7 @@ results and impact.`;
                     href={project.href}
                     target="_blank"
                     rel="noopener noreferrer"
+                    aria-label={`View project details for ${project.name}`}
                     id="project"
                     className="relative flex flex-col gap-1 py-5 cursor-pointer group"
                     onClick={(e) => {
@@ -170,7 +171,7 @@ results and impact.`;
                         {project.name}
                       </h3>
 
-                      <Icon icon="lucide:arrow-up-right" className="size-6" />
+                      <ArrowUpRightIcon className="size-6" aria-hidden="true" />
                     </div>
 
                     <div className="w-full h-px bg-black/80" />
@@ -190,13 +191,17 @@ results and impact.`;
                     <div className="relative flex items-center justify-center h-96 px-10 mt-5 md:hidden">
                       <img
                         src={project.bgImage}
-                        alt=""
+                        alt={`${project.name} background`}
+                        loading="lazy"
+                        decoding="async"
                         className="object-cover w-full h-full rounded-lg brightness-50"
                       />
 
                       <img
                         src={project.image}
-                        alt={project.name}
+                        alt={`${project.name} preview`}
+                        loading="lazy"
+                        decoding="async"
                         className="absolute px-6 max-h-[85%] object-contain rounded-xl shadow-lg"
                       />
                     </div>
@@ -225,7 +230,9 @@ results and impact.`;
                 <div className="w-full h-full rounded-[26px] overflow-hidden bg-neutral-950 relative flex items-center justify-center">
                   <img
                     src={currentProject.image}
-                    alt={currentProject.name}
+                    alt={`${currentProject.name} interactive preview`}
+                    loading="lazy"
+                    decoding="async"
                     className="w-full h-full object-contain object-top"
                   />
                 </div>
@@ -250,7 +257,9 @@ results and impact.`;
                 <div className="w-full flex-1 overflow-hidden bg-neutral-950 relative flex items-center justify-center">
                   <img
                     src={currentProject.image}
-                    alt={currentProject.name}
+                    alt={`${currentProject.name} web preview`}
+                    loading="lazy"
+                    decoding="async"
                     className="w-full h-full object-contain object-top"
                   />
                 </div>

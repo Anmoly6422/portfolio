@@ -18,6 +18,14 @@ const App = () => {
   const [loaderFinished, setLoaderFinished] = useState(false);
   const [activeShowcase, setActiveShowcase] = useState(null);
 
+  // 1-shot safety timer to release preloader within 150ms for instant FCP/LCP
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsReady(true);
+    }, 150);
+    return () => clearTimeout(timer);
+  }, []);
+
   useEffect(() => {
     if (progress === 100) {
       setIsReady(true);

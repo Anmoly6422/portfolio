@@ -3,7 +3,7 @@
 /* Amiamie Regular */
 @font-face {
   font-family: "Amiamie";
-  src: url("/fonts/otf/Amiamie-Regular.otf") format("opentype");
+  src: url("/fonts/amiamie/otf/Amiamie-Regular.otf") format("opentype");
   font-weight: 400;
   font-style: normal;
   font-display: swap;
@@ -36,6 +36,11 @@ body {
   scroll-behavior: smooth;
   overflow-x: hidden;
   font-family: var(--font-amiamie);
+}
+
+:focus-visible {
+  outline: 2px solid #cfa355;
+  outline-offset: 3px;
 }
 
 @utility clip-path {
