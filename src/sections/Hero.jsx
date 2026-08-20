@@ -1,17 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import AnimatedHeaderSection from "../components/AnimatedHeaderSection";
 import HeroCanvas from "../components/HeroCanvas";
 
 const Hero = () => {
-  const [shouldRenderCanvas, setShouldRenderCanvas] = useState(false);
-
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setShouldRenderCanvas(true);
-    }, 500);
-    return () => clearTimeout(timer);
-  }, []);
-
   const text = `I help growing brands and startups gain an
 unfair advantage through premium
 results driven webs/apps`;
@@ -30,7 +21,7 @@ results driven webs/apps`;
         className="absolute inset-0 z-0 pointer-events-none w-full h-full overflow-hidden"
         aria-hidden="true"
       >
-        {shouldRenderCanvas && <HeroCanvas />}
+        <HeroCanvas />
       </figure>
     </section>
   );
