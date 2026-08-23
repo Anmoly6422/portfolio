@@ -13,24 +13,28 @@ import CurtainLoader from './components/CurtainLoader'
 import { useProgress } from '@react-three/drei'
 
 const App = () => {
-  const { progress } = useProgress();
+  const { progress, active } = useProgress();
   const [isReady, setIsReady] = useState(false);
   const [loaderFinished, setLoaderFinished] = useState(false);
   const [activeShowcase, setActiveShowcase] = useState(null);
 
-  // 1-shot safety timer to release preloader within 150ms for instant FCP/LCP
+  // Sync preloader release with 3D Planet load completion
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setIsReady(true);
-    }, 150);
-    return () => clearTimeout(timer);
-  }, []);
-
-  useEffect(() => {
-    if (progress === 100) {
-      setIsReady(true);
+    if (progress === 100 || !active) {
+      const timer = setTimeout(() => {
+        setIsReady(true);
+      }, 200);
+      return () => clearTimeout(timer);
     }
-  }, [progress]);
+  }, [progress, active]);
+
+  // 4.5s maximum safety fallback timer for slow networks
+  useEffect(() => {
+    const fallbackTimer = setTimeout(() => {
+      setIsReady(true);
+    }, 4500);
+    return () => clearTimeout(fallbackTimer);
+  }, []);
 
   // Handle URL hash changes for showcase navigation e.g. #showcase/expomind
   useEffect(() => {
