@@ -7,11 +7,13 @@ import { useGLTF } from '@react-three/drei'
 import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
 
+const DRACO_URL = 'https://www.gstatic.com/draco/versioned/decoders/1.5.7/';
+
 export function Planet(props) {
     const shapeContainer= useRef(null);
     const spereContainer= useRef(null);
     const ringContainer= useRef(null);
-  const { nodes, materials } = useGLTF('/models/Planet.glb')
+  const { nodes, materials } = useGLTF('/models/Planet.glb', DRACO_URL)
 
  useGSAP(() => {
   const tl = gsap.timeline({
@@ -109,4 +111,4 @@ export function Planet(props) {
   )
 }
 
-useGLTF.preload('/models/Planet.glb')
+useGLTF.preload('/models/Planet.glb', DRACO_URL)
