@@ -6,40 +6,35 @@ export const INITIAL_DEMO_FEEDBACK = [
     id: 'demo-1',
     name: 'Sarah Jenkins',
     role: 'Tech Lead @ Vercel',
-    message: 'Anmol’s portfolio is pure magic! The 3D planet transitions and UI polish are top-notch.',
-    emoji: '🔥',
+    message: 'Anmol’s portfolio architecture is pure perfection. The 3D planet performance and UI micro-interactions are world-class.',
     created_at: new Date(Date.now() - 3600000 * 2).toISOString(),
   },
   {
     id: 'demo-2',
     name: 'David Chen',
     role: 'Senior Recruiter @ Google',
-    message: 'Insanely clean codebase and mobile app showcase. One of the best engineer portfolios I have reviewed.',
-    emoji: '🚀',
+    message: 'Insanely clean codebase and mobile app showcases. Easily one of the top engineering portfolios I have reviewed this year.',
     created_at: new Date(Date.now() - 3600000 * 5).toISOString(),
   },
   {
     id: 'demo-3',
     name: 'Elena Rostova',
-    role: 'Product Designer',
-    message: 'The micro-interactions, dark aesthetic, and performance optimizations feel incredibly smooth!',
-    emoji: '💜',
+    role: 'Product Architect',
+    message: 'The typography, dark obsidian aesthetic, and smooth 60fps velocity motion feel incredibly high-end.',
     created_at: new Date(Date.now() - 3600000 * 12).toISOString(),
   },
   {
     id: 'demo-4',
     name: 'Alex Rivera',
     role: 'Startup Founder',
-    message: 'Anmol delivered our React Native app ahead of schedule with flawless 60fps animations.',
-    emoji: '👏',
+    message: 'Anmol delivered our cross-platform mobile application ahead of schedule with zero architectural debt.',
     created_at: new Date(Date.now() - 3600000 * 24).toISOString(),
   },
   {
     id: 'demo-5',
     name: 'Marcus Vance',
     role: 'Full-Stack Engineer',
-    message: 'Obsessed with the custom cursor and Awwwards-style architectural curtain preloader!',
-    emoji: '😍',
+    message: 'Obsessed with the custom curtain preloader and full-stack performance optimization skills!',
     created_at: new Date(Date.now() - 3600000 * 36).toISOString(),
   },
 ];
@@ -53,7 +48,6 @@ export function useFeedbackWall() {
       return;
     }
 
-    // 1. Initial fetch from Supabase
     async function fetchFeedback() {
       try {
         const { data, error } = await supabase
@@ -67,7 +61,7 @@ export function useFeedbackWall() {
           setItems(data);
         }
       } catch (err) {
-        console.warn('Error fetching feedback from Supabase:', err);
+        console.warn('Error fetching notes from Supabase:', err);
       } finally {
         setLoading(false);
       }
@@ -75,7 +69,6 @@ export function useFeedbackWall() {
 
     fetchFeedback();
 
-    // 2. Realtime Subscription for live instant feedback updates
     const channel = supabase
       .channel('feedback-wall')
       .on(

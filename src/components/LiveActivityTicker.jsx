@@ -4,11 +4,11 @@ export function LiveActivityTicker({ items = [] }) {
   const latestItem = items.length > 0 ? items[0] : null;
 
   return (
-    <div className="w-full py-3 px-6 bg-black/90 border-y border-white/10 text-white font-mono text-xs overflow-hidden select-none flex items-center justify-between shadow-inner">
+    <div className="w-full py-3.5 px-6 bg-black/90 border-y border-white/10 text-white font-mono text-xs overflow-hidden select-none flex items-center justify-between shadow-inner">
       <div className="flex items-center gap-3 shrink-0">
         <span className="w-2 h-2 rounded-full bg-[#cfa355] animate-pulse" />
         <span className="text-neutral-400 uppercase tracking-widest text-[11px] hidden sm:inline">
-          REALTIME STREAM
+          WALL OF LOVE STREAM
         </span>
         <span className="text-neutral-600">//</span>
         <span className="text-neutral-300 text-[11px]">

@@ -17,7 +17,6 @@ function VelocityCard({ item, isHovered, isAnyHovered, onHover, onLeave }) {
       })
     : 'Recent';
 
-  // Get initial letters for avatar monogram
   const initials = item.name
     .split(' ')
     .map((n) => n[0])
@@ -47,10 +46,10 @@ function VelocityCard({ item, isHovered, isAnyHovered, onHover, onLeave }) {
             : 'border-white/10 shadow-[0_10px_30px_rgba(0,0,0,0.4)]'
         }`}
       >
-        {/* Top Header info */}
+        {/* Top Header */}
         <div className="flex items-center justify-between gap-3 mb-4">
           <div className="flex items-center gap-3">
-            {/* Monogram Avatar with Ring */}
+            {/* Monogram Avatar with Accent Ring */}
             <div className="w-10 h-10 rounded-full bg-gradient-to-tr from-[#393632] to-[#1a1918] border border-[#cfa355]/40 flex items-center justify-center text-xs font-mono font-bold text-white shadow-inner shrink-0">
               {initials}
             </div>
@@ -63,15 +62,15 @@ function VelocityCard({ item, isHovered, isAnyHovered, onHover, onLeave }) {
                 </p>
               ) : (
                 <p className="text-[11px] font-mono text-neutral-400 uppercase tracking-wider">
-                  Verified Guest
+                  Verified Note
                 </p>
               )}
             </div>
           </div>
 
           <div className="flex items-center gap-2 shrink-0">
-            <span className="text-lg">{item.emoji || '💜'}</span>
-            <span className="text-[10px] font-mono uppercase text-neutral-500">
+            <span className="w-2 h-2 rounded-full bg-emerald-400" />
+            <span className="text-[10px] font-mono uppercase text-neutral-400">
               {formattedDate}
             </span>
           </div>
@@ -82,9 +81,9 @@ function VelocityCard({ item, isHovered, isAnyHovered, onHover, onLeave }) {
           “{item.message}”
         </p>
 
-        {/* Bottom Accent Bar */}
+        {/* Bottom Architectural Metadata */}
         <div className="mt-4 pt-3 border-t border-white/5 flex justify-between items-center text-[10px] font-mono text-neutral-500 uppercase tracking-widest">
-          <span>REALTIME NOTE</span>
+          <span>VERIFIED NOTE</span>
           <span className="text-neutral-400">#WALLOFLOVE</span>
         </div>
       </TiltCard>
@@ -103,7 +102,7 @@ export function FeedbackWall({ items }) {
     );
   }
 
-  const rows = chunkIntoRows(items, 2); // 2 Velocity Lanes
+  const rows = chunkIntoRows(items, 2);
   const isAnyHovered = Boolean(hoveredCardId);
 
   return (
@@ -121,7 +120,6 @@ export function FeedbackWall({ items }) {
         }
 
         const direction = i % 2 === 0 ? -1 : 1;
-        // Slow down smoothly when any card is hovered
         const duration = isAnyHovered ? 90 : 38 + i * 10;
 
         return (

@@ -14,7 +14,7 @@ const WallOfLove = () => {
     addLocalItem(newItem);
   };
 
-  const headerText = `Live, instant-publish feedback from recruiters, clients, and fellow developers.
+  const headerText = `Live notes and endorsements from recruiters, clients, and software architects.
 Hover any note card to pause and inspect in 3D!`;
 
   return (
@@ -22,7 +22,7 @@ Hover any note card to pause and inspect in 3D!`;
       <div className="relative z-20 px-6 lg:px-12 max-w-7xl mx-auto w-full flex flex-col items-center">
         <AnimatedHeaderSection
           subTitle={"Wall of Love"}
-          title={"Live Feedback Stream"}
+          title={"Wall of Love"}
           text={headerText}
           textColor={"text-black"}
         />
@@ -35,14 +35,14 @@ Hover any note card to pause and inspect in 3D!`;
               className="group flex items-center gap-3 px-8 py-4 rounded-full bg-black text-white font-semibold text-sm hover:bg-neutral-800 transition-all duration-300 shadow-xl"
             >
               <span className="text-base font-bold text-[#cfa355]">＋</span>
-              <span>Sign the Guestbook</span>
+              <span>Sign the Wall of Love</span>
               <span className="w-2 h-2 rounded-full bg-[#cfa355] animate-pulse" />
             </button>
           </MagneticButton>
 
           <div className="flex items-center gap-2 px-4 py-2 rounded-full bg-white/80 border border-black/10 text-xs font-mono text-neutral-700 uppercase tracking-wider shadow-sm">
             <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-            <span>Realtime Sync Active</span>
+            <span>Wall of Love Stream Active</span>
           </div>
         </div>
       </div>
@@ -57,7 +57,7 @@ Hover any note card to pause and inspect in 3D!`;
         <LiveActivityTicker items={items} />
       </div>
 
-      {/* Dark Glass Modal for submitting feedback */}
+      {/* Dark Glass Modal for signing the Wall of Love */}
       <FeedbackFormModal
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}

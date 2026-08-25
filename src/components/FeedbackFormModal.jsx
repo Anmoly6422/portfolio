@@ -3,7 +3,6 @@ import { supabase, isSupabaseConfigured } from '../lib/supabase';
 import MagneticButton from './MagneticButton';
 import { XIcon } from './Icons';
 
-const EMOJIS = ['💜', '🔥', '🚀', '👏', '😍'];
 const BLOCKED_WORDS = ['spamword1', 'spamword2', 'casino', 'crypto-scam', 'viagra'];
 const LINK_REGEX = /(https?:\/\/|www\.)/i;
 const MAX_MESSAGE_LENGTH = 220;
@@ -14,12 +13,11 @@ export function FeedbackFormModal({ isOpen, onClose, onSubmitted }) {
   const [name, setName] = useState('');
   const [role, setRole] = useState('');
   const [message, setMessage] = useState('');
-  const [emoji, setEmoji] = useState('💜');
   const [honeypot, setHoneypot] = useState('');
   const [status, setStatus] = useState('idle');
   const [errorMsg, setErrorMsg] = useState('');
 
-  // Close on ESC key press
+  // Close on ESC key
   useEffect(() => {
     const handleKeyDown = (e) => {
       if (e.key === 'Escape' && isOpen) {
@@ -104,7 +102,6 @@ export function FeedbackFormModal({ isOpen, onClose, onSubmitted }) {
       name: trimmedName,
       role: trimmedRole || null,
       message: trimmedMessage,
-      emoji: emoji || '💜',
       approved: true,
       created_at: new Date().toISOString(),
     };
@@ -117,7 +114,6 @@ export function FeedbackFormModal({ isOpen, onClose, onSubmitted }) {
             name: trimmedName,
             role: trimmedRole || null,
             message: trimmedMessage,
-            emoji: emoji || '💜',
             approved: true,
           })
           .select()
@@ -143,8 +139,8 @@ export function FeedbackFormModal({ isOpen, onClose, onSubmitted }) {
         onClose();
       }, 1800);
     } catch (err) {
-      console.error('Feedback submission error:', err);
-      setErrorMsg('Something went wrong submitting feedback. Please try again.');
+      console.error('Note submission error:', err);
+      setErrorMsg('Something went wrong submitting your note. Please try again.');
       setStatus('error');
     }
   }
@@ -158,11 +154,11 @@ export function FeedbackFormModal({ isOpen, onClose, onSubmitted }) {
         onClick={(e) => e.stopPropagation()}
         className="w-full max-w-lg rounded-3xl bg-[#121214] border border-white/15 p-6 sm:p-8 shadow-[0_25px_80px_rgba(0,0,0,0.6)] text-white relative"
       >
-        {/* Header Bar */}
+        {/* Modal Header */}
         <div className="flex items-center justify-between border-b border-white/10 pb-4 mb-6">
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2.5">
             <span className="w-2 h-2 rounded-full bg-[#cfa355] animate-pulse" />
-            <h3 className="text-lg font-bold tracking-tight text-white">Sign the Wall of Love</h3>
+            <h3 className="text-lg font-bold tracking-tight text-white uppercase">Sign the Wall of Love</h3>
           </div>
 
           <MagneticButton onClick={onClose} aria-label="Close modal">
@@ -185,7 +181,7 @@ export function FeedbackFormModal({ isOpen, onClose, onSubmitted }) {
           <div className="flex flex-col sm:flex-row gap-3">
             <input
               type="text"
-              placeholder="Your Name *"
+              placeholder="Your Full Name *"
               value={name}
               onChange={(e) => setName(e.target.value)}
               maxLength={MAX_NAME_LENGTH}
@@ -205,7 +201,7 @@ export function FeedbackFormModal({ isOpen, onClose, onSubmitted }) {
 
           <div className="relative">
             <textarea
-              placeholder="Write a note — say something nice or share feedback! (max 220 chars)"
+              placeholder="Write your note for the Wall of Love... (max 220 chars)"
               value={message}
               onChange={(e) => setMessage(e.target.value)}
               maxLength={MAX_MESSAGE_LENGTH}
@@ -219,32 +215,20 @@ export function FeedbackFormModal({ isOpen, onClose, onSubmitted }) {
           </div>
 
           <div className="flex items-center justify-between pt-2">
-            <div className="flex items-center gap-1.5 bg-white/5 p-1 rounded-xl border border-white/10">
-              {EMOJIS.map((e) => (
-                <button
-                  type="button"
-                  key={e}
-                  onClick={() => setEmoji(e)}
-                  aria-label={`Select reaction ${e}`}
-                  className={`text-lg px-2 py-1 rounded-lg transition-all ${
-                    emoji === e ? 'bg-white/20 shadow-sm scale-110' : 'opacity-50 hover:opacity-100'
-                  }`}
-                >
-                  {e}
-                </button>
-              ))}
+            <div className="text-[11px] font-mono text-neutral-500 uppercase tracking-widest">
+              INSTANT PUBLISH
             </div>
 
             <MagneticButton strength={0.3}>
               <button
                 type="submit"
                 disabled={status === 'sending'}
-                className="px-6 py-3 rounded-full bg-white text-black font-semibold text-sm hover:bg-neutral-200 transition-all duration-300 shadow-md disabled:opacity-50"
+                className="px-7 py-3.5 rounded-full bg-white text-black font-semibold text-sm hover:bg-neutral-200 transition-all duration-300 shadow-md disabled:opacity-50"
               >
                 {status === 'sending' ? (
                   <span>Publishing...</span>
                 ) : status === 'sent' ? (
-                  <span>Published Live! 🎉</span>
+                  <span>Published to Wall of Love!</span>
                 ) : (
                   <span>Publish Note</span>
                 )}
