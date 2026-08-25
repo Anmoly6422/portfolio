@@ -145,7 +145,6 @@ results and impact.`;
                     target="_blank"
                     rel="noopener noreferrer"
                     aria-label={`View project details for ${project.name}`}
-                    id="project"
                     className="relative flex flex-col gap-1 py-5 cursor-pointer group"
                     onClick={(e) => {
                       if (project.showcaseId && onOpenShowcase) {

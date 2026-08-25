@@ -1,7 +1,18 @@
 import React, { useRef } from "react";
 import gsap from "gsap";
 
-const MagneticButton = ({ children, className = "", onClick, href, target, rel, strength = 0.35 }) => {
+const MagneticButton = ({
+  children,
+  className = "",
+  onClick,
+  href,
+  target,
+  rel,
+  strength = 0.35,
+  "aria-label": ariaLabel,
+  "aria-expanded": ariaExpanded,
+  ...props
+}) => {
   const btnRef = useRef(null);
 
   const handleMouseMove = (e) => {
@@ -44,9 +55,12 @@ const MagneticButton = ({ children, className = "", onClick, href, target, rel, 
       target={target}
       rel={rel}
       onClick={onClick}
+      aria-label={ariaLabel}
+      aria-expanded={ariaExpanded}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
       className={`inline-flex items-center justify-center cursor-pointer transition-shadow duration-300 ${className}`}
+      {...props}
     >
       {children}
     </Component>

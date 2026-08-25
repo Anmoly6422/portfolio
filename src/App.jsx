@@ -76,7 +76,7 @@ const App = () => {
         />
       )}
 
-      <div className="opacity-100">
+      <main className="opacity-100">
         <Navbar />
         <Hero />
         <ServiceSummary />
@@ -86,7 +86,7 @@ const App = () => {
         <WallOfLove />
         <ContactSummary />
         <Contact />
-      </div>
+      </main>
 
       {activeShowcase && (
         <ProjectShowcase showcaseId={activeShowcase} onClose={closeShowcase} />

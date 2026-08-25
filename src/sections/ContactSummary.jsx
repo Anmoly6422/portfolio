@@ -47,7 +47,7 @@ const ContactSummary = () => {
           “ Let’s build a <br />
           <span className="font-normal">memorable</span> &{" "}
           <span className="italic">inspiring</span> <br />
-          web application <span className="text-gold">together</span> “
+          web application <span className="text-[#805a10] font-semibold">together</span> “
         </p>
       </div>
       <div className="w-full mt-8">

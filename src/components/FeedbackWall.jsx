@@ -55,7 +55,7 @@ function VelocityCard({ item, isHovered, isAnyHovered, onHover, onLeave }) {
             </div>
 
             <div className="overflow-hidden">
-              <h4 className="text-sm font-bold text-white truncate tracking-tight">{item.name}</h4>
+              <h3 className="text-sm font-bold text-white truncate tracking-tight">{item.name}</h3>
               {item.role ? (
                 <p className="text-[11px] font-mono text-[#cfa355] truncate uppercase tracking-wider">
                   {item.role}

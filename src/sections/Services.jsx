@@ -58,7 +58,7 @@ const Services = () => {
                 {service.items.map((item, itemIndex) => (
                   <div key={`item-${index}-${itemIndex}`}>
                     <h3 className="flex">
-                      <span className="mr-12 text-lg text-white/30">
+                      <span className="mr-12 text-lg text-white/70">
                         0{itemIndex + 1}
                       </span>
                       {item.title}
