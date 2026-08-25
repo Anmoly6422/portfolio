@@ -102,6 +102,7 @@ const Navbar = () => {
     { label: "Services", to: "services" },
     { label: "About", to: "about" },
     { label: "Work", to: "work" },
+    { label: "Wall of Love", to: "wall-of-love" },
     { label: "Contact", to: "contact" },
   ];
 

@@ -4,6 +4,7 @@ import Hero from './sections/Hero'
 import ServiceSummary from './sections/ServiceSummary'
 import Services from './sections/Services'
 import About from './sections/About'
+import WallOfLove from './sections/WallOfLove'
 import ReactLenis from 'lenis/react'
 import Works from './sections/Works'
 import ContactSummary from './sections/ContactSummary'
@@ -82,6 +83,7 @@ const App = () => {
         <Works onOpenShowcase={openShowcase} />
         <Services />
         <About />
+        <WallOfLove />
         <ContactSummary />
         <Contact />
       </div>
