@@ -97,6 +97,24 @@ export const webProjects = [
   },
   {
     id: 3,
+    name: "Cutly",
+    description:
+      "A fast full-stack URL shortener featuring custom alias links, real-time click analytics, QR code generation, and instant redirection.",
+    href: "https://usecutly.vercel.app/",
+    image: "/assets/projects/web-dev/cutly.png",
+    bgImage: "/assets/backgrounds/poster.jpg",
+    frameworks: [
+      { id: 1, name: "Next.js" },
+      { id: 2, name: "React" },
+      { id: 3, name: "TypeScript" },
+      { id: 4, name: "Node.js" },
+      { id: 5, name: "Express" },
+      { id: 6, name: "MongoDB" },
+      { id: 7, name: "Tailwind CSS" },
+    ],
+  },
+  {
+    id: 4,
     name: "Job Application Tracker",
     description:
       "A full-stack job application tracker with an intuitive drag-and-drop Kanban board to organize and monitor your job search.",
@@ -113,7 +131,7 @@ export const webProjects = [
     ],
   },
   {
-    id: 4,
+    id: 5,
     name: "Event Planner",
     description:
       "A full-stack event management and RSVP platform that lets users create events, generate secure invite links, and collect RSVPs.",
@@ -129,7 +147,7 @@ export const webProjects = [
     ],
   },
   {
-    id: 5,
+    id: 6,
     name: "Clown Fighter",
     description:
       "A browser-based fighting game built with vanilla JavaScript and the Canvas API, featuring sprite animation and collision detection.",
