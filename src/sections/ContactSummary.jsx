@@ -1,11 +1,7 @@
-import { useRef } from "react";
 import Marquee from "../components/Marquee";
 import { SquareIcon } from "../components/Icons";
-import { useGSAP } from "@gsap/react";
-import gsap from "gsap";
 
 const ContactSummary = () => {
-  const containerRef = useRef(null);
   const items = [
     "Innovation",
     "Precision",
@@ -21,24 +17,8 @@ const ContactSummary = () => {
     "LET'S BUILD SOMETHING AMAZING",
   ];
 
-  useGSAP(() => {
-    gsap.to(containerRef.current, {
-      scrollTrigger: {
-        trigger: containerRef.current,
-        start: "center center",
-        end: "+=800 center",
-        scrub: 0.5,
-        pin: true,
-        pinSpacing: true,
-        markers: false,
-      },
-    });
-  }, []);
   return (
-    <section
-      ref={containerRef}
-      className="flex flex-col items-center justify-center min-h-screen py-20 gap-20"
-    >
+    <section className="relative z-10 flex flex-col items-center justify-center min-h-screen py-20 gap-20 bg-[#e5e5e0]">
       <div className="w-full">
         <Marquee items={items} />
       </div>
