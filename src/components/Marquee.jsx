@@ -1,10 +1,11 @@
 import { StarFourPointsIcon } from "./Icons";
 import gsap from "gsap";
 import { Observer } from "gsap/all";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useMemo } from "react";
 gsap.registerPlugin(Observer);
+
 const Marquee = ({
-  items,
+  items = [],
   className = "text-white bg-black",
   IconComponent = StarFourPointsIcon,
   iconClassName = "",
@@ -13,8 +14,17 @@ const Marquee = ({
   const containerRef = useRef(null);
   const itemsRef = useRef([]);
 
-  function horizontalLoop(items, config) {
-    items = gsap.utils.toArray(items);
+  // Ensure enough items exist to comfortably exceed 2x-3x screen width
+  const displayItems = useMemo(() => {
+    if (!items || items.length === 0) return [];
+    const repeatCount = Math.max(3, Math.ceil(15 / items.length));
+    return Array(repeatCount).fill(items).flat();
+  }, [items]);
+
+  function horizontalLoop(elements, config) {
+    elements = gsap.utils.toArray(elements).filter(Boolean);
+    if (!elements || elements.length === 0) return null;
+
     config = config || {};
     let tl = gsap.timeline({
         repeat: config.repeat,
@@ -23,8 +33,8 @@ const Marquee = ({
         onReverseComplete: () =>
           tl.totalTime(tl.rawTime() + tl.duration() * 100),
       }),
-      length = items.length,
-      startX = items[0].offsetLeft,
+      length = elements.length,
+      startX = elements[0].offsetLeft,
       times = [],
       widths = [],
       xPercents = [],
@@ -38,7 +48,8 @@ const Marquee = ({
       distanceToLoop,
       item,
       i;
-    gsap.set(items, {
+
+    gsap.set(elements, {
       xPercent: (i, el) => {
         let w = (widths[i] = parseFloat(gsap.getProperty(el, "width", "px")));
         xPercents[i] = snap(
@@ -48,16 +59,17 @@ const Marquee = ({
         return xPercents[i];
       },
     });
-    gsap.set(items, { x: 0 });
+    gsap.set(elements, { x: 0 });
     totalWidth =
-      items[length - 1].offsetLeft +
+      elements[length - 1].offsetLeft +
       (xPercents[length - 1] / 100) * widths[length - 1] -
       startX +
-      items[length - 1].offsetWidth *
-        gsap.getProperty(items[length - 1], "scaleX") +
+      elements[length - 1].offsetWidth *
+        gsap.getProperty(elements[length - 1], "scaleX") +
       (parseFloat(config.paddingRight) || 0);
+
     for (i = 0; i < length; i++) {
-      item = items[i];
+      item = elements[i];
       curX = (xPercents[i] / 100) * widths[i];
       distanceToStart = item.offsetLeft + curX - startX;
       distanceToLoop =
@@ -88,6 +100,7 @@ const Marquee = ({
         .add("label" + i, distanceToStart / pixelsPerSecond);
       times[i] = distanceToStart / pixelsPerSecond;
     }
+
     function toIndex(index, vars) {
       vars = vars || {};
       Math.abs(index - curIndex) > length / 2 &&
@@ -102,6 +115,7 @@ const Marquee = ({
       vars.overwrite = true;
       return tl.tweenTo(time, vars);
     }
+
     tl.next = (vars) => toIndex(curIndex + 1, vars);
     tl.previous = (vars) => toIndex(curIndex - 1, vars);
     tl.current = () => curIndex;
@@ -116,47 +130,71 @@ const Marquee = ({
   }
 
   useEffect(() => {
-    const tl = horizontalLoop(itemsRef.current, {
-      repeat: -1,
-      paddingRight: 30,
-      reversed: reverse,
-    });
+    let tl = null;
+    let observer = null;
 
-    const observer = Observer.create({
-      onChangeY(self) {
-        let factor = 2.5;
+    const initLoop = () => {
+      if (tl) tl.kill();
+      const validElements = itemsRef.current.filter(Boolean);
+      if (validElements.length === 0) return;
 
-        if ((!reverse && self.deltaY < 0) || (reverse && self.deltaY > 0)) {
-          factor *= -1;
-        }
+      tl = horizontalLoop(validElements, {
+        repeat: -1,
+        paddingRight: 40,
+        reversed: reverse,
+      });
 
-        gsap
-          .timeline({
-            defaults: {
-              ease: "none",
-            },
-          })
-          .to(tl, {
-            timeScale: factor * 2.5,
-            duration: 0.2,
-            overwrite: true,
-          })
-          .to(
-            tl,
-            {
-              timeScale: factor / 2.5,
-              duration: 1,
-            },
-            "+=0.3"
-          );
-      },
-    });
+      if (!observer) {
+        observer = Observer.create({
+          onChangeY(self) {
+            if (!tl) return;
+            let factor = 2.5;
+            if ((!reverse && self.deltaY < 0) || (reverse && self.deltaY > 0)) {
+              factor *= -1;
+            }
+            gsap
+              .timeline({ defaults: { ease: "none" } })
+              .to(tl, {
+                timeScale: factor * 2.5,
+                duration: 0.2,
+                overwrite: true,
+              })
+              .to(
+                tl,
+                {
+                  timeScale: factor / 2.5,
+                  duration: 1,
+                },
+                "+=0.3"
+              );
+          },
+        });
+      }
+    };
+
+    // Initial loop creation
+    const timer = setTimeout(initLoop, 50);
+
+    // Recalculate loop when custom fonts finish loading
+    if (document.fonts && document.fonts.ready) {
+      document.fonts.ready.then(initLoop);
+    }
+
+    // Handle window resize
+    const handleResize = () => {
+      initLoop();
+    };
+    window.addEventListener("resize", handleResize);
 
     return () => {
-      observer.kill();
-      tl.kill();
+      clearTimeout(timer);
+      window.removeEventListener("resize", handleResize);
+      if (observer) observer.kill();
+      if (tl) tl.kill();
     };
-  }, [items, reverse]);
+  }, [displayItems, reverse]);
+
+  itemsRef.current = [];
 
   return (
     <div
@@ -164,13 +202,18 @@ const Marquee = ({
       className={`overflow-hidden w-full py-5 flex items-center marquee-text-responsive font-light uppercase whitespace-nowrap ${className}`}
     >
       <div className="flex">
-        {items.map((text, index) => (
+        {displayItems.map((text, index) => (
           <span
-            key={index}
-            ref={(el) => (itemsRef.current[index] = el)}
-            className="flex items-center px-16 gap-x-32"
+            key={`${text}-${index}`}
+            ref={(el) => {
+              if (el) itemsRef.current[index] = el;
+            }}
+            className="flex items-center px-10 gap-x-20 shrink-0"
           >
-            {text} {IconComponent && <IconComponent className={iconClassName} aria-hidden="true" />}
+            {text}{" "}
+            {IconComponent && (
+              <IconComponent className={iconClassName} aria-hidden="true" />
+            )}
           </span>
         ))}
       </div>

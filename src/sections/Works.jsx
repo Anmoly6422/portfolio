@@ -139,7 +139,7 @@ results and impact.`;
               const current = overlayIndex++;
 
               return (
-                <div key={project.id}>
+                <div key={project.id} id="project">
                   <a
                     href={project.href}
                     target="_blank"
